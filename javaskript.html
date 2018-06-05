@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>En test</title>
+
+    <script>
+        let barve = ['blue', 'yellow', 'green', 'pink', 'red', 'violet']
+        function spremeni() {
+            let i = parseInt(Math.random()*barve.length)
+            let telo = document.getElementById('telo');
+            telo.style.backgroundColor = barve[i];
+            let naslov = document.getElementsByTagName('h1')[0];
+            naslov.innerText += " " + barve[i]
+        }
+        let a = 0.2;
+        let v = 0;
+        let h = 0;
+
+        let ax = 0;
+        let vx = 0;
+        let x = 0;
+
+        function padi() {
+            let gumb = document.getElementById('gumb');
+            v += a - 0.005*v;
+            h += v;
+            if (h > 500) {
+                h = 500;
+                v*= -1;
+            }
+            vx += ax - 0.01*vx;
+            x += vx;
+            if (x > 500) {
+                x = 500;
+                vx*= -1;
+            }
+            if (x < 0) {
+                x = 0;
+                vx*= -1;
+            }
+            gumb.style.marginTop = h;
+            gumb.style.marginLeft = x;
+
+        }
+        function skoci() {
+            console.log(event);
+            if (event.code == "KeyW") {
+                v = -10;
+            } else if (event.code == "KeyD"){
+                vx += 10;
+
+            } else if (event.code ==  "KeyA"){
+                vx -= 10;
+            }
+
+        }
+    </script>
+<head>
+
+<body id='telo' onkeydown='skoci()'>
+    <h1>Naslov</h1>
+    <p> To je tekst prvega odstavka. </p>
+    <button id='gumb' onclick='setInterval(spremeni, 10)'>Gumb</button>
+    <button onclick='setInterval(padi, 5)'>Padaj</button>
+</body>
+</html>
